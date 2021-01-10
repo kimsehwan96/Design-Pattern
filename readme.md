@@ -107,6 +107,7 @@
 |package|~|동일 패키지 내에 있는 클래스의 객체들만 접근 가능|
 
 - 위 클래스 UML표를 코드로 나타내보자
+
 - 파이썬
 
 ```python3
@@ -149,6 +150,8 @@ public class Student{
 
 ![3](images/3.png)
 
+- 파이썬
+
 ```python3
 
 class Board:
@@ -176,6 +179,8 @@ class SchedulerBoard(Board):
 
 ```
 
+- 자바
+
 ```java
 
 public class Board {
@@ -202,6 +207,8 @@ class SchedulerBoard extends Board {
 - 점선과 비어있는 화살표로 표현한다.
 
 ![4](images/4.png)
+
+- 파이썬
 
 ```python3
 from abc import * #추상메서드 활용을 위해서
@@ -231,6 +238,8 @@ class Board(OpenCloseable):
 
 ```
 
+- 자바
+
 
 ```java
 public interface OpenCloseable {
@@ -249,6 +258,54 @@ public class Board implements OpenCloseable {
 }
 ```
 
+#### 의존
+- 의존은 클래스간의 참조가 일어나는 것 중 하나다.
+- 참조는 메서드 내에서 대상 클래스의 객체를 생성하거나 사용, 리턴받아 사용하는 것을 말한다.
+- 이 참조는 해당 클래스와의 관계를 계속 유지하지 않는다.
+- 의존은 점선과 화살표로 이루어져있다.
 
+![5](images/5.png)
 
+- 파이썬
+
+```python3
+
+class Board:
+    def __init__(self):
+        self.__title = None
+    
+    def getTitleWithRanking(self, ranking: Ranking): #type 어노테이션 (헷갈리지 않기 위해서)
+        return self.__title + ranking.getRank()
+
+class Ranking:
+    def __init__(self):
+        self.__rank = None
+    
+    def getRank(self):
+        return self.__rank #Board 클래스의 getTitleWithRankin 메서드가 수행 될 때 이 클래스의 인스턴스를 참조한다
+
+```
+
+- 자바
+
+```java
+public class Board {
+
+    private String title;
+
+    public String getTitleWithRanking(Ranking ranking) {
+        return title + ranking.getRank();
+    }
+}
+
+public class Ranking { 
+    private int rank;
+
+    public int getRank() {
+        return rank;
+    }
+}
+```
+
+- 의존성은 메서드의 호출이 끝나면 연관된 클래스와의 관계가 마무리 된다.
 
